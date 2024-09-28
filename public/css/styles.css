@@ -106,7 +106,7 @@ h1 {
 }
 .spotlight-details h3 {
   background-color: var(--main-accent);
-  color: var(--primary-color1);
+  color: white;
   font-size: 15px;
   text-align: center;
   padding: 2px;
