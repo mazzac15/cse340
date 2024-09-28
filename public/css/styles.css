@@ -7,12 +7,15 @@
 
 /* color scheme */
 :root {
+  --font-headline: "Anton", sans-serif;
+  --font-body: "Roboto", sans-serif;
   --primary-background: #fff;
-  --main-accent: #01b0d3;
-  --font-color1: rgb(71, 71, 71);
+  --main-accent: #D90429;
+  --primary-color1: #161A1D;
 }
 
-body{
+body {
+  font-family: "Roboto", sans-serif;
   margin: 0;
   height: 100%;
 }
@@ -26,6 +29,7 @@ body{
 }
 
 #top-header {
+  font-family: "Anton", sans-serif;
   display: flex;
   justify-content: space-between;
   padding: 10px;
@@ -33,19 +37,19 @@ body{
 
 #tools a {
   font-size: 1.2em;
-  color: var(--font-color1);
+  color: var(--primary-color1);
   text-decoration: none;
 }
 
 .siteName a {
   font-size: 2.2em;
-  color: var(--font-color1);
+  color: var(--primary-color1);
   text-decoration: none;
 }
 
 nav ul {
   list-style-type: none;
-  background-color: var(--font-color1);
+  background-color: var(--primary-color1);
   display: flex;
   justify-content: space-between;
   width: 100%;
@@ -102,7 +106,7 @@ h1 {
 }
 .spotlight-details h3 {
   background-color: var(--main-accent);
-  color: var(--font-color1);
+  color: var(--primary-color1);
   font-size: 15px;
   text-align: center;
   padding: 2px;
@@ -133,7 +137,7 @@ h1 {
   width: 100%;
   height: 75px;
   object-fit: contain;
-  border: 1px solid var(--font-color1);
+  border: 1px solid var(--primary-color1);
   display: flex;
   background-color: var(--main-accent);
   padding-left: 50px;
@@ -227,7 +231,7 @@ h1 {
   } */
   .upgrade-img {
     object-fit: contain;
-    border: 1px solid var(--font-color1);
+    border: 1px solid var(--primary-color1);
     display: block;
     background-color: var(--main-accent);
     margin: 0 auto;
