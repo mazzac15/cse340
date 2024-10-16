@@ -18,5 +18,21 @@ invCont.buildByClassificationId = async function (req, res, next) {
         grid,
     })    
 }
+/* ********************
+ * Build single view by inv_id
+ ******************* */
+invCont.buildByInvId = async function (req, res, next) {
+    const inv_id = req.params.invId
+    const data = await invModel.getInvId(inv_id)
+    const vehicle = data[0]
+    let nav = await utilities.getNav()
+    
+    const vehicleDetail = await utilities.buildVehicleDetailView(vehicle)
+    res.render("./inventory/single", {
+        title: `${vehicle.inv_year} ${vehicle.inv_make} ${vehicle.inv_model}`,
+        nav,
+        vehicleDetail,
+    })
+}
 
 module.exports = invCont
