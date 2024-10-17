@@ -84,6 +84,46 @@ Util.buildVehicleDetailView = async function(vehicle) {
     
 };
 
+/* **************************************
+* Build Login view HTML
+* ************************************ */
+Util.buildLogin = function() {
+    let loginForm = '<div class="login-container">';
+    loginForm += '<form action="/account/login" method="post" name="login-form">';
+    loginForm += '<label for="account_email">Email: </label>';
+    loginForm += '<input type="email" id="account_email" name="account_email" required />';
+    loginForm += '<label for="account_password">Password: </label>';
+    loginForm += '<input type="password" id="account_password" name="account_password" required />';
+    loginForm += '<button type="submit">Login</button>';
+    loginForm += '</form>';
+    loginForm += '<p class="no-account">No account? ' + '<a href="../account/register">Sign-up' + '</p>';
+    loginForm += '</div>';  
+    
+    return loginForm;
+};
+
+/* **************************************
+* Build Registration view HTML
+* ************************************ */
+Util.buildRegister = function() {
+    let registerForm = '<div class="register-container">';
+    registerForm += '<form action="/account/register" method="post" name="register-form">';
+    registerForm += '<label for="account_firstname">First Name: </label>';
+    registerForm += '<input type="text" id="account_firstname" name="account_firstname" required/>';
+    registerForm += '<label for="account_lastname">Last Name: </label>';
+    registerForm += '<input type="text" id="account_lastname" name="account_lastname" required/>';
+    registerForm += '<label for="account_email">Email address: </label>';
+    registerForm += '<input type="email" id="account_email" name="account_email" required/>';
+    registerForm += '<label for="account_password">Password: </label>';
+    registerForm += '<input type="password" id="account_password" name="account_password" required/>';
+    registerForm += '<p>Passwords must be a minimum of 12 characters and include 1 capital letter, 1 number and 1 special character.</p>';
+    registerForm += '<button type="submit">Register</button>';
+    registerForm += '</form>';
+    registerForm += '</div>';
+
+    return registerForm;
+};
+
 
 /* **************************************
 * Middleware for Handling Errors
