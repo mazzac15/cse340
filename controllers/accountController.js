@@ -7,12 +7,11 @@ const accountModel = require("../models/account-model")
 * *************************************** */
 async function buildLogin(req, res, next) {
     let nav = await utilities.getNav()
-    let loginForm = utilities.buildLogin()
     
     res.render("account/login", {
         title: "Login",
         nav,
-        loginForm,
+        errors: null,
     })
 }
 
@@ -21,12 +20,11 @@ async function buildLogin(req, res, next) {
 * *************************************** */
 async function buildRegister(req, res, next) {
     let nav = await utilities.getNav()
-    let registerForm = utilities.buildRegister()
+    // let registerForm = utilities.buildRegister()
     res.render("account/register", {
         title: "Register",
         nav,
-        registerForm,
-        // errors: null,
+        errors: null,
     })
 }
 
@@ -58,7 +56,8 @@ async function registerAccount(req, res) {
         res.status(201).render("account/login", {
             title: "Login",
             nav,
-            loginForm,
+            // loginForm,
+            errors: null,
         })
     } else {
         req.flash("notice", "Sorry, the registration failed.")

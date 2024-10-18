@@ -99,9 +99,9 @@ nav li {
 
 .login-container {
   width: 300px;
-  height: 300px;
+  height: 375px;
   margin: 0 auto;
-  background-color: gray;
+  background-color: rgb(172, 170, 170);
   border: 1px solid #ccc;
   border-radius: 5px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
@@ -114,12 +114,25 @@ form label {
   display: block;
   margin: 5px;
   color: white;
+  font-size: 20px;
 }
 
 form input {
   width: 100%;
   padding: 10px;
-  border: none;
+  border: 3px solid #ccc;
+}
+
+form input:required:invalid, input:focus:invalid {
+  border-color: var(--main-accent);
+}
+
+input:required:valid {
+  border-color: green;
+}
+
+.passwords {
+  padding-top: 10px;
 }
 
 .login-container button {
@@ -131,7 +144,7 @@ form input {
   border-radius: 5px;
   margin-top: 20px;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 20px;
 }
 
 .register-container {
@@ -156,9 +169,12 @@ form input {
   border-radius: 5px;
   margin-top: 20px;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 20px;
 }
 
+.no-account a {
+  color: var(--font-body);
+}
 h1 {
   font-size: 1.4em;
 }
