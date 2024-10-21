@@ -56,7 +56,6 @@ async function registerAccount(req, res) {
         res.status(201).render("account/login", {
             title: "Login",
             nav,
-            // loginForm,
             errors: null,
         })
     } else {
