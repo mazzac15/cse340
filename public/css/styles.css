@@ -163,7 +163,8 @@ input:required:valid {
 .alphaName {
   padding: 5px;
 }
-.register-container button, .add-inventory-container button, .classification-container button {
+.register-container button, .add-inventory-container button, 
+.classification-container button, .edit-inventory-container button {
   width: 100%;
   padding: 10px;
   background-color: var(--main-accent);
@@ -180,7 +181,7 @@ input:required:valid {
 }
 
 /* add-inventory form */
-.add-inventory-container, .classification-container {
+.add-inventory-container, .classification-container, .edit-inventory-container {
   min-width: 300px;
   max-width: 600px;
   height: auto;

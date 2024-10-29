@@ -35,7 +35,7 @@ async function getInvId(inv_id) {
       WHERE inv_id = $1`,
       [inv_id]
     )
-    return data.rows
+    return data.rows[0]
   } catch (error) {
     console.error("getInvId error " + error)
   }
@@ -59,20 +59,8 @@ async function addClassification(classification_name) {
  * ************************** */
 async function addInventory(vehicleData) {
   try {
-     // Log the values being inserted for debugging
-     console.log("Attempting to insert:", {
-      inv_make, 
-      inv_model, 
-      inv_description, 
-      inv_image, 
-      inv_thumbnail, 
-      inv_price, 
-      inv_year, 
-      inv_miles, 
-      inv_color, 
-      classification_id
-    })
-    const sql = `INSERT INTO inventory (inv_make, inv_model, inv_description, inv_image, inv_thumbnail, inv_price, inv_year, inv_miles, inv_color, classification_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *`
+    const sql = `INSERT INTO inventory (inv_make, inv_model, inv_description, inv_image, inv_thumbnail, inv_price, inv_year, inv_miles, inv_color, classification_id)
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *`
     const addVehicleResult = await pool.query(sql, [
       vehicleData.inv_make, 
       vehicleData.inv_model, 
@@ -86,12 +74,53 @@ async function addInventory(vehicleData) {
       vehicleData.classification_id])
     return addVehicleResult.rows[0];
   } catch (error) {
+    throw error
+  }
+}
 
-    console.error("error in addInventory:", error) //debugging
+/* ***************************
+ *  Update inventory Data
+ * ************************** */
+async function updateInventory(vehicleData) {
 
+  try {
+    const sql = `
+    UPDATE inventory
+    SET 
+      inv_make = $1,
+      inv_model = $2,
+      inv_description = $3,
+      inv_image = $4,
+      inv_thumbnail = $5,
+      inv_price = $6,
+      inv_year = $7,
+      inv_miles = $8,
+      inv_color = $9,
+      classification_id = $10
+    WHERE inv_id = $11
+    RETURNING *
+  `
+    const data = [
+      vehicleData.inv_make, 
+      vehicleData.inv_model, 
+      vehicleData.inv_description, 
+      vehicleData.inv_image, 
+      vehicleData.inv_thumbnail, 
+      vehicleData.inv_price, 
+      vehicleData.inv_year, 
+      vehicleData.inv_miles, 
+      vehicleData.inv_color, 
+      vehicleData.classification_id,
+      vehicleData.inv_id,
+    ]
+
+    const result = await pool.query(sql, data)
+
+    return result.rows[0];
+  } catch (error) {
     throw error
   }
 }
 
 
-module.exports = {getClassifications, getInventoryByClassificationId, getInvId, addClassification, addInventory};
+module.exports = {getClassifications, getInventoryByClassificationId, getInvId, addClassification, addInventory, updateInventory};

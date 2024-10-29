@@ -18,7 +18,7 @@ const inventoryRoute = require("./routes/inventoryRoute")
 const accountRoute = require('./routes/accountRoute')
 const session = require("express-session")
 const pool = require('./database/')
-
+const cookieParser = require("cookie-parser")
 
 
 /* ***********************
@@ -45,6 +45,13 @@ app.use(function(req, res, next){
 // body parser middleware
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
+
+// cookie parser middleware
+app.use(cookieParser())
+
+// JWTToken middleware
+app.use(utilities.checkJWTToken)
+
 
 /* ***********************
  * View Engine and Templates
