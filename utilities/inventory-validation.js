@@ -17,9 +17,9 @@ validate.addNewClassificationRules = () => {
     ]
 }
 
-/* ******************************
+/* **********************************************************
  * Check data and return errors or continue to classification
- * ***************************** */
+ * ******************************************************* */
 validate.checkClassificationData = async (req, res, next) => {
     const { classification_name } = req.body
     let errors = validationResult(req)
@@ -155,9 +155,9 @@ validate.checkNewInventoryData = async (req, res, next) => {
     next()
 }
 
-/* ******************************
+/* *****************************************************
  * Check data and return errors or continue to edit view
- * ***************************** */
+ * ************************************************** */
 validate.checkUpdateData = async (req, res, next) => {
     const { inv_id, inv_make, inv_model, inv_description, inv_image, inv_thumbnail, inv_price, inv_year, inv_miles, inv_color, classification_id } = req.body
     let errors = validationResult(req)
@@ -180,6 +180,47 @@ validate.checkUpdateData = async (req, res, next) => {
             inv_miles,
             inv_color,
             classification_id
+        })
+        return;
+    }
+    next()
+}
+
+
+/* ***************************
+ * Delete validation rules
+ * ************************** */
+validate.deleteRules = () => {
+    return [
+        body("inv_id")
+        .trim()
+        .isNumeric()
+        .withMessage("Invalid vehicle ID.")
+        .bail()
+        .notEmpty()
+        .withMessage("Vehicle ID is required.")
+        .bail()
+    ]
+}
+
+/* *****************************************************
+ * check delete data and return errors
+ * ************************************************** */
+validate.checkDeleteData = async (req, res, next) => {
+    const { inv_id } = req.body
+    let errors = validationResult(req)
+    if (!errors.isEmpty()) {
+        let nav = await utilities.getNav()
+        const itemData = await invModel.getInvId(parseInt(inv_id))
+        res.render("inventory/delete-confirm", {
+            errors,
+            title: "Delete Vehicle",
+            nav,
+            inv_id: itemData.inv_id,
+            inv_make: itemData.inv_make,
+            inv_model: itemData.inv_model,
+            inv_year: itemData.inv_year,
+            inv_price: itemData.inv_price
         })
         return;
     }

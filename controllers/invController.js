@@ -317,5 +317,71 @@ invCont.updateInventory = async function (req, res, next) {
         })
     }
 }
+
+/* ***********************************
+ * Build delete-confirm inventory view
+ ********************************** */
+invCont.buildDeleteConfirm = async function (req, res, next) {
+    try {
+        const inv_id = parseInt(req.params.inv_id)
+        let nav = await utilities.getNav()
+        const itemData = await invModel.getInvId(inv_id)
+
+        if(!itemData) {
+            req.flash("notice", "Sorry, we couldn't find that vehicle.")
+            return res.redirect("/inv/")
+        }
+
+        res.render("./inventory/delete-confirm", {
+                title: "Delete " + itemData.inv_make + " " + itemData.inv_model,
+                nav,
+                errors: null,
+                inv_id: itemData.inv_id,
+                inv_make: itemData.inv_make,
+                inv_model: itemData.inv_model,
+                inv_year: itemData.inv_year,
+                inv_price: itemData.inv_price,
+                classification_id: itemData.classification_id
+            })
+    } catch (error) {
+        console.error("Erorr in buildDeleteConfirm:", error)
+        req.flash("notice", "Sorry, there was an error.")
+        res.redirect("/inv/")
+    }    
+} 
+
+/* ********************************
+ * Process Delete-Confirm Inventory
+ ******************************* */
+invCont.deleteConfirm = async function (req, res, next) {
+    try {
+        let nav = await utilities.getNav();
+        const inv_id = parseInt(req.body.inv_id)
+    
+        if(!inv_id) {
+            req.flash("notice", "Invalid vehicle ID")
+            return res.redirect("/inv/")
+        }
+
+        const itemData = await invModel.getInvId(inv_id)
+        const itemName = `${itemData.inv_make} ${itemData.inv_model}`
+
+        const deleteVehicleResult = await invModel.deleteConfirm(inv_id)
+             
+        if (deleteVehicleResult) {
+            req.flash("notice", `The ${itemName} was deleted successfully.`)
+            res.redirect("/inv/")
+        } else {
+            req.flash("notice", "Sorry the delete failed.")
+            res.status(501).render("inv/delete-confirm")
+        }
+   
+    } catch (error) {
+    console.error("Error in deleteConfirm:", error)
+    req.flash("notice", "Sorry, there was an error deleting the vehicle.")
+    res.status(500).render("inventory/delete-confirm")
+    }
+}
+
    
 module.exports = invCont
