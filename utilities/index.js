@@ -36,15 +36,15 @@ Util.buildClassificationGrid = async function(data){
         data.forEach(vehicle => {
             grid += '<li>'
             grid +=  '<a href="../../inv/detail/'+ vehicle.inv_id 
-            + '" title="View ' + vehicle.inv_make + ' '+ vehicle.inv_model 
-            + 'details"><img src="' + vehicle.inv_thumbnail 
+            + '" title="View ' + vehicle.inv_make + ' ' + vehicle.inv_model 
+            + ' details"><img src="' + vehicle.inv_thumbnail 
             +'" alt="Image of '+ vehicle.inv_make + ' ' + vehicle.inv_model 
-            +' on CSE Motors" /></a>'
+            +' on CSE Motors" ></a>'
             grid += '<hr>'
             grid += '<div class="namePrice">'
             
             grid += '<h2>'
-            grid += '<a href="../../inv/detail/' + vehicle.inv_id + '" title=View '
+            grid += '<a href="../../inv/detail/' + vehicle.inv_id + '" title="View '
             + vehicle.inv_make + ' ' + vehicle.inv_model + ' details">'
             + vehicle.inv_make + ' ' + vehicle.inv_model + '</a>'
             grid += '</h2>'
@@ -55,7 +55,7 @@ Util.buildClassificationGrid = async function(data){
         })
         grid += '</ul>'
     } else {
-        grid += '<p class="notice"> Sorry, no matching vehicles could be found.</p>'
+        grid = '<p class="notice"> Sorry, no matching vehicles could be found.</p>'
     }
     return grid
 }
@@ -68,8 +68,8 @@ Util.buildVehicleDetailView = async function(vehicle) {
     if(vehicle) {
         vehicleDetail = '<div class="single-vehicle">';
         vehicleDetail += '<div class="vehicle-image">';
-        vehicleDetail += '<img src="' + vehicle.inv_image + '"alt="Image of '
-            + vehicle.inv_make + ' ' + vehicle.inv_model + ' on CSE Motors" />';
+        vehicleDetail += '<img src="' + vehicle.inv_image + '" alt="Image of '
+            + vehicle.inv_make + ' ' + vehicle.inv_model + ' on CSE Motors" >';
         vehicleDetail += '</div>';
         vehicleDetail += '<div class="vehicle-details">';
         vehicleDetail += '<h2>' + vehicle.inv_make + ' ' + vehicle.inv_model 
@@ -77,7 +77,9 @@ Util.buildVehicleDetailView = async function(vehicle) {
         vehicleDetail += '<p class="price"><strong>Price: </strong>$' + new Intl.NumberFormat('en-US').format(vehicle.inv_price) + '</p>';
         vehicleDetail += '<p class="description"><strong>Description: </strong>' + vehicle.inv_description + '</p>';
         vehicleDetail += '<p class="color"><strong>Color: </strong>' + vehicle.inv_color + '</p>';
-        vehicleDetail += '<p class="miles"><strong>Miles: </strong>' + new Intl.NumberFormat('en-US').format(vehicle.inv_miles) + '</p>';    
+        vehicleDetail += '<p class="miles"><strong>Miles: </strong>' + new Intl.NumberFormat('en-US').format(vehicle.inv_miles) + '</p>';
+        vehicleDetail += '</div>';    
+        vehicleDetail += '</div>';
     } else {
         vehicleDetail = '<p class="notice">Sorry, this vehicle could not be found.</p>';
     }
@@ -147,6 +149,25 @@ Util.checkLogin = (req, res, next) => {
         return res.redirect("/account/login")
     }
 }
+
+/* ****************************************
+* Middleware to check token validity
+**************************************** */
+Util.checkAccountType = (req, res, next) => {
+    if (res.locals.loggedin) {
+        const account_type = res.locals.accountData.account_type
+        if (account_type === "Employee" || account_type === "Admin") {
+            next()
+        } else {
+            req.flash("notice", "Please log in with management account.")
+            return res.redirect("/account/login")
+        }
+    } else {
+        req.flash("notice", "Please log in.")
+        return res.redirect("/account/login")
+    }
+}
+
 
 module.exports = Util
 

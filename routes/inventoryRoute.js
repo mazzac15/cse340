@@ -12,10 +12,16 @@ router.get("/type/:classificationId", utilities.handleErrors(invController.build
 router.get("/detail/:invId", utilities.handleErrors(invController.buildByInvId));
 
 // Routes for management to add inventory
-router.get("/", utilities.handleErrors(invController.buildManagement)); 
+router.get("/",
+    utilities.checkJWTToken,
+    utilities.checkAccountType,
+    utilities.handleErrors(invController.buildManagement)); 
 
 // Route for adding new classification
-router.get("/add-classification", utilities.handleErrors(invController.buildAddClassification))
+router.get("/add-classification",
+    utilities.checkJWTToken,
+    utilities.checkAccountType,
+    utilities.handleErrors(invController.buildAddClassification))
 
 // Route for processing new classification
 router.post("/add-classification",
@@ -24,7 +30,10 @@ router.post("/add-classification",
     utilities.handleErrors(invController.processAddClassification))
 
 // Route for adding new inventory
-router.get("/add-inventory", utilities.handleErrors(invController.buildAddInventory))
+router.get("/add-inventory",
+    utilities.checkJWTToken,
+    utilities.checkAccountType,
+    utilities.handleErrors(invController.buildAddInventory))
 
 //Route for processing new inventory
 router.post("/add-inventory",
@@ -37,7 +46,10 @@ router.post("/add-inventory",
 router.get("/getInventory/:classification_id", utilities.handleErrors(invController.getInventoryJSON))
 
 // Route for editing inventory view
-router.get("/edit/:inv_id", utilities.handleErrors(invController.buildEditInventory))
+router.get("/edit/:inv_id",
+    utilities.checkJWTToken,
+    utilities.checkAccountType,
+    utilities.handleErrors(invController.buildEditInventory))
 
 // Route for processing update inventory
 router.post("/edit-inventory",
@@ -46,7 +58,10 @@ router.post("/edit-inventory",
     utilities.handleErrors(invController.updateInventory))
 
 // Route for delete view
-router.get("/delete/:inv_id", utilities.handleErrors(invController.buildDeleteConfirm))
+router.get("/delete/:inv_id",
+    utilities.checkJWTToken,
+    utilities.checkAccountType,
+    utilities.handleErrors(invController.buildDeleteConfirm))
 
 // Route for processing delete inventory
 router.post("/delete-confirm",

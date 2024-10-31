@@ -194,6 +194,62 @@ input:required:valid {
   margin-top: 25px;
   padding: 20px;
 }
+
+/* update form */
+.update-container, .update-password{
+  min-width: 250px;
+  max-width: 400px;
+  padding: 25px;
+}
+
+.update-container form input,
+.update-password form input {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  background-color: white;
+}
+
+.update-container form input:focus,
+.update-password form input:focus {
+  outline: none;
+  border-color: var(--main-accent);
+}
+
+.update-password form input[type="password"] {
+  border-color: #ccc;
+}
+
+.update-password form input[type="password"]:focus {
+  border-color: var(--main-accent);
+}
+
+.update-container button, .update-password button {
+  width: 100px;
+  padding: 10px;
+  background-color: var(--main-accent);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  margin-top: 20px;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.update-password button {
+  width: 150px;
+}
+
+.update-password form label, .update-container form label {
+  display: block;
+  margin: 5px;
+  color: var(--primary-color1);
+  font-size: 20px;
+}
+
 h1 {
   font-size: 1.4em;
 }

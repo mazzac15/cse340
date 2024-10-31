@@ -13,15 +13,15 @@
     <div class="login-container">
         <form action="/account/login" method="post" name="login-form" id="login-form">
             <label for="account_email">Email: </label>
-            <input type="email" id="account_email" name="account_email" required <%= locals.account_email %>/>
+            <input type="email" id="account_email" name="account_email" required <%= locals.account_email %>>
             
             <label for="account_password">Password: </label>
-            <input type="password" id="account_password" name="account_password" required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$"/>
+            <input type="password" id="account_password" name="account_password" required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$">
             <div class="passwords"><i>Passwords must be a minimum of 12 characters and include 1 capital letter, 1 number and 1 special character.</i></div>
         
             <button type="submit">Login</button>
         </form>
-        <p class="no-account">No account? <a href="../account/register">Sign-up</p>
+        <p class="no-account">No account? <a href="../account/register">Sign-up</a></p>
     </div> 
         
 

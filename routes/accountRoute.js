@@ -39,7 +39,44 @@ router.post(
 * ************************************ */
 router.get(
     "/",
-    utilities.checkLogin,
+    utilities.checkJWTToken,
     utilities.handleErrors(accountController.buildAccountManagement))
 
+/* **************************************
+* Deliver Account Update View
+* ************************************ */
+router.get(
+    "/update",
+    utilities.checkJWTToken,
+    utilities.handleErrors(accountController.buildAccountUpdate))
+
+/* **************************************
+* Process Account Update
+* ************************************ */
+router.post(
+    "/update",
+    utilities.checkJWTToken,
+    regValidate.updateAccountRules(),
+    regValidate.checkUpdateData,
+    utilities.handleErrors(accountController.updateAccount))   
+
+/* **************************************
+* Process Password Update
+* ************************************ */
+router.post(
+    "/update-password",
+    utilities.checkJWTToken,
+    regValidate.updatePasswordRules(),
+    regValidate.checkPasswordData,
+    utilities.handleErrors(accountController.updatePassword))
+
+
+
+/* **************************************
+* Deliver Logout View
+* ************************************ */
+router.get("/logout", utilities.handleErrors(accountController.logoutAccount));
+
+
 module.exports = router;
+
